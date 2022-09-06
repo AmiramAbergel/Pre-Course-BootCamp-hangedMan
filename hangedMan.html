@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>>Hangman!</title>
+        <h1>Hangman!</h1>
+    </head>
+    <body>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/es6-promise/3.0.2/es6-promise.min.js"></script>
+
+        <script>
+            const prompt = require('prompt-sync')();
+            const figlet = require('figlet');
+
+            const printWelcomeMessage = () => {
+                console.log(figlet.textSync('HANGED MAN', 'Dancing Font'));
+            };
+
+            let name = prompt("What's your name?");
+            alert("Hello " + name);
+
+
+            const wordsBank = [
+                "JavaScript",
+                "Wonderland",
+                "Game",
+                "Test",
+                "Course",
+                "Computer",
+                "FullStack",
+            ];
+
+            const Attempts = 10;
+
+            let word = wordsBank[Math.floor(Math.random() * wordsBank.length)];
+
+            let answerArray = [];
+            for (let i = 0; i < word.length; i++) {
+                answerArray[i] = "*";
+            }
+            let remainingLetters = word.length;
+
+            while (remainingLetters > 0) {
+                alert("You have 10 guesses\n The word is: " + answerArray.join(" "));
+
+                let guess = prompt("What is your guess?");
+                if (guess === null) {
+                    break;
+                } else if (guess.length !== 1) {
+                    alert("Please enter only one one character.");
+                } else { // Update the game state with the guess
+                    for (let j = 0; j < word.length; j++) {
+                        if (word[j] === guess) {
+                            answerArray[j] = guess;
+                            remainingLetters--;
+                        }
+                    }
+                }
+            }
+            alert(answerArray.join(" "));
+            alert("Wow you are good!!!\n The answer was " + word);
+        </script>
+
+    </body>
+</html>
